@@ -1,0 +1,12 @@
+query allHomepage {
+  allHomepage {
+    topBanners {
+      name
+      image {
+        asset {
+          url
+        }
+      }
+    }
+  }
+}

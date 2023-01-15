@@ -1,3 +1,4 @@
+import React from 'react';
 import CartItemList from './CartItemList';
 
 const CartItem = () => {
