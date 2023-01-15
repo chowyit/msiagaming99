@@ -3,22 +3,48 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.22.0",
+    "@tanstack/react-query-devtools": "^4.22.0",
+    "axios": "^1.2.2",
+    "graphql": "^16.6.0",
     "next": "latest",
+    "next-sanity-image": "^5.0.0",
+    "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.16.4",
+    "@graphql-codegen/client-preset": "^1.2.6",
+    "@graphql-codegen/introspection": "^2.2.3",
+    "@graphql-codegen/typescript-react-query": "^4.0.6",
     "@types/node": "18.11.3",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "autoprefixer": "^10.4.12",
+    "eslint": "^8.32.0",
+    "eslint-config-next": "^13.1.2",
+    "eslint-plugin-react": "^7.32.0",
     "postcss": "^8.4.18",
     "prettier": "^2.8.1",
     "tailwindcss": "^3.2.1",
+    "ts-node": "^10.9.1",
     "typescript": "4.8.4"
-  }
+  },
+  "name": "msiagaming99",
+  "version": "1.0.0",
+  "description": "Game server site",
+  "main": "index.tsx",
+  "repository": "git@github.com:chowyit/msiagaming99.git",
+  "author": "Chow Yit <chowzz0511@gmail.com>",
+  "license": "MIT"
 }
