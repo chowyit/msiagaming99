@@ -8,16 +8,19 @@
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@sanity/client": "^4.0.1",
     "@tanstack/react-query": "^4.22.0",
     "@tanstack/react-query-devtools": "^4.22.0",
     "axios": "^1.2.2",
+    "classnames": "^2.3.2",
     "graphql": "^16.6.0",
     "next": "latest",
     "next-sanity-image": "^5.0.0",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.7.1"
+    "react-icons": "^4.7.1",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.4",
