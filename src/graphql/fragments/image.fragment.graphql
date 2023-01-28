@@ -1,0 +1,37 @@
+fragment ImageFragment on Image {
+  asset {
+    _id
+    _key
+    originalFilename
+    label
+    title
+    description
+    altText
+    sha1hash
+    extension
+    size
+    assetId
+    uploadId
+    url
+    path
+    metadata {
+      lqip
+    }
+  }
+  hotspot {
+    _key
+    _type
+    x
+    y
+    height
+    width
+  }
+  crop {
+    _key
+    _type
+    top
+    bottom
+    left
+    right
+  }
+}
