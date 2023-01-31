@@ -15,7 +15,7 @@ const CartButton = () => {
           <span className='font-bold text-white'>Cart</span>
         </div>
       </div>
-      <div className='w-[320px] absolute right-5 hidden peer-hover:block hover:block hover:z-20 bg-white shadow-lg flex-col p-2'>
+      <div className='w-[320px] absolute right-5 hidden peer-hover:block hover:block z-20 bg-white shadow-xl flex-col p-2'>
         <CartItem />
       </div>
     </>
