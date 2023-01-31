@@ -76,6 +76,8 @@ export type CategoryBanner = Document & {
   gameType?: Maybe<Array<Maybe<CategoryBannerType>>>;
   games?: Maybe<Array<Maybe<Product>>>;
   hasMenu?: Maybe<Scalars['Boolean']>;
+  /** Please enter same as Banner Title without space */
+  id?: Maybe<Scalars['String']>;
 };
 
 export type CategoryBannerFilter = {
@@ -89,6 +91,7 @@ export type CategoryBannerFilter = {
   _updatedAt?: InputMaybe<DatetimeFilter>;
   bannerTitle?: InputMaybe<StringFilter>;
   hasMenu?: InputMaybe<BooleanFilter>;
+  id?: InputMaybe<StringFilter>;
 };
 
 export type CategoryBannerSorting = {
@@ -100,6 +103,7 @@ export type CategoryBannerSorting = {
   _updatedAt?: InputMaybe<SortOrder>;
   bannerTitle?: InputMaybe<SortOrder>;
   hasMenu?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
 };
 
 export type CategoryBannerType = Document & {
@@ -116,6 +120,8 @@ export type CategoryBannerType = Document & {
   /** Date the document was last modified */
   _updatedAt?: Maybe<Scalars['DateTime']>;
   games?: Maybe<Array<Maybe<Product>>>;
+  spotlightA?: Maybe<Product>;
+  spotlightB?: Maybe<Product>;
   typeName?: Maybe<Scalars['String']>;
 };
 
@@ -128,6 +134,8 @@ export type CategoryBannerTypeFilter = {
   _rev?: InputMaybe<StringFilter>;
   _type?: InputMaybe<StringFilter>;
   _updatedAt?: InputMaybe<DatetimeFilter>;
+  spotlightA?: InputMaybe<ProductFilter>;
+  spotlightB?: InputMaybe<ProductFilter>;
   typeName?: InputMaybe<StringFilter>;
 };
 
@@ -1166,6 +1174,112 @@ export type ImageFragmentFragment = {
   } | null;
 };
 
+export type GetCategoryBannerByIdQueryVariables = Exact<{
+  Param?: InputMaybe<Scalars['String']>;
+}>;
+
+export type GetCategoryBannerByIdQuery = {
+  __typename?: 'RootQuery';
+  allCategoryBanner: Array<{
+    __typename?: 'CategoryBanner';
+    hasMenu?: boolean | null;
+    gameType?: Array<{
+      __typename?: 'CategoryBannerType';
+      typeName?: string | null;
+      games?: Array<{
+        __typename?: 'Product';
+        name?: string | null;
+        price?: number | null;
+        slug?: { __typename?: 'Slug'; current?: string | null } | null;
+        image?: Array<{
+          __typename?: 'Image';
+          asset?: {
+            __typename?: 'SanityImageAsset';
+            _id?: string | null;
+            _key?: string | null;
+            originalFilename?: string | null;
+            label?: string | null;
+            title?: string | null;
+            description?: string | null;
+            altText?: string | null;
+            sha1hash?: string | null;
+            extension?: string | null;
+            size?: number | null;
+            assetId?: string | null;
+            uploadId?: string | null;
+            url?: string | null;
+            path?: string | null;
+            metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+          } | null;
+          hotspot?: {
+            __typename?: 'SanityImageHotspot';
+            _key?: string | null;
+            _type?: string | null;
+            x?: number | null;
+            y?: number | null;
+            height?: number | null;
+            width?: number | null;
+          } | null;
+          crop?: {
+            __typename?: 'SanityImageCrop';
+            _key?: string | null;
+            _type?: string | null;
+            top?: number | null;
+            bottom?: number | null;
+            left?: number | null;
+            right?: number | null;
+          } | null;
+        } | null> | null;
+      } | null> | null;
+    } | null> | null;
+    games?: Array<{
+      __typename?: 'Product';
+      name?: string | null;
+      price?: number | null;
+      slug?: { __typename?: 'Slug'; current?: string | null } | null;
+      image?: Array<{
+        __typename?: 'Image';
+        asset?: {
+          __typename?: 'SanityImageAsset';
+          _id?: string | null;
+          _key?: string | null;
+          originalFilename?: string | null;
+          label?: string | null;
+          title?: string | null;
+          description?: string | null;
+          altText?: string | null;
+          sha1hash?: string | null;
+          extension?: string | null;
+          size?: number | null;
+          assetId?: string | null;
+          uploadId?: string | null;
+          url?: string | null;
+          path?: string | null;
+          metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+        } | null;
+        hotspot?: {
+          __typename?: 'SanityImageHotspot';
+          _key?: string | null;
+          _type?: string | null;
+          x?: number | null;
+          y?: number | null;
+          height?: number | null;
+          width?: number | null;
+        } | null;
+        crop?: {
+          __typename?: 'SanityImageCrop';
+          _key?: string | null;
+          _type?: string | null;
+          top?: number | null;
+          bottom?: number | null;
+          left?: number | null;
+          right?: number | null;
+        } | null;
+      } | null> | null;
+    } | null> | null;
+  }>;
+};
+
 export type AllHomepageQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllHomepageQuery = {
@@ -1333,6 +1447,21 @@ export type AllHomepageQuery = {
   }>;
 };
 
+export type AllCategoryBannerTitleQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AllCategoryBannerTitleQuery = {
+  __typename?: 'RootQuery';
+  allHomepage: Array<{
+    __typename?: 'Homepage';
+    active?: boolean | null;
+    categoryBanners?: Array<{
+      __typename?: 'CategoryBanner';
+      id?: string | null;
+      bannerTitle?: string | null;
+    } | null> | null;
+  }>;
+};
+
 export const ImageFragmentFragmentDoc = `
     fragment ImageFragment on Image {
   asset {
@@ -1372,6 +1501,80 @@ export const ImageFragmentFragmentDoc = `
   }
 }
     `;
+export const GetCategoryBannerByIdDocument = `
+    query getCategoryBannerById($Param: String) {
+  allCategoryBanner(where: {id: {eq: $Param}}) {
+    hasMenu
+    gameType {
+      typeName
+      games {
+        name
+        slug {
+          current
+        }
+        price
+        image {
+          ...ImageFragment
+        }
+      }
+    }
+    games {
+      name
+      slug {
+        current
+      }
+      price
+      image {
+        ...ImageFragment
+      }
+    }
+  }
+}
+    ${ImageFragmentFragmentDoc}`;
+export const useGetCategoryBannerByIdQuery = <TData = GetCategoryBannerByIdQuery, TError = unknown>(
+  variables?: GetCategoryBannerByIdQueryVariables,
+  options?: UseQueryOptions<GetCategoryBannerByIdQuery, TError, TData>
+) =>
+  useQuery<GetCategoryBannerByIdQuery, TError, TData>(
+    variables === undefined ? ['getCategoryBannerById'] : ['getCategoryBannerById', variables],
+    fetcher<GetCategoryBannerByIdQuery, GetCategoryBannerByIdQueryVariables>(
+      GetCategoryBannerByIdDocument,
+      variables
+    ),
+    options
+  );
+
+useGetCategoryBannerByIdQuery.getKey = (variables?: GetCategoryBannerByIdQueryVariables) =>
+  variables === undefined ? ['getCategoryBannerById'] : ['getCategoryBannerById', variables];
+export const useInfiniteGetCategoryBannerByIdQuery = <
+  TData = GetCategoryBannerByIdQuery,
+  TError = unknown
+>(
+  pageParamKey: keyof GetCategoryBannerByIdQueryVariables,
+  variables?: GetCategoryBannerByIdQueryVariables,
+  options?: UseInfiniteQueryOptions<GetCategoryBannerByIdQuery, TError, TData>
+) =>
+  useInfiniteQuery<GetCategoryBannerByIdQuery, TError, TData>(
+    variables === undefined
+      ? ['getCategoryBannerById.infinite']
+      : ['getCategoryBannerById.infinite', variables],
+    (metaData) =>
+      fetcher<GetCategoryBannerByIdQuery, GetCategoryBannerByIdQueryVariables>(
+        GetCategoryBannerByIdDocument,
+        { ...variables, ...(metaData.pageParam ? { [pageParamKey]: metaData.pageParam } : {}) }
+      )(),
+    options
+  );
+
+useInfiniteGetCategoryBannerByIdQuery.getKey = (variables?: GetCategoryBannerByIdQueryVariables) =>
+  variables === undefined
+    ? ['getCategoryBannerById.infinite']
+    : ['getCategoryBannerById.infinite', variables];
+useGetCategoryBannerByIdQuery.fetcher = (variables?: GetCategoryBannerByIdQueryVariables) =>
+  fetcher<GetCategoryBannerByIdQuery, GetCategoryBannerByIdQueryVariables>(
+    GetCategoryBannerByIdDocument,
+    variables
+  );
 export const AllHomepageDocument = `
     query allHomepage {
   allHomepage(where: {active: {eq: true}}) {
@@ -1455,3 +1658,63 @@ useInfiniteAllHomepageQuery.getKey = (variables?: AllHomepageQueryVariables) =>
   variables === undefined ? ['allHomepage.infinite'] : ['allHomepage.infinite', variables];
 useAllHomepageQuery.fetcher = (variables?: AllHomepageQueryVariables) =>
   fetcher<AllHomepageQuery, AllHomepageQueryVariables>(AllHomepageDocument, variables);
+export const AllCategoryBannerTitleDocument = `
+    query allCategoryBannerTitle {
+  allHomepage(where: {active: {eq: true}}) {
+    active
+    categoryBanners {
+      id
+      bannerTitle
+    }
+  }
+}
+    `;
+export const useAllCategoryBannerTitleQuery = <
+  TData = AllCategoryBannerTitleQuery,
+  TError = unknown
+>(
+  variables?: AllCategoryBannerTitleQueryVariables,
+  options?: UseQueryOptions<AllCategoryBannerTitleQuery, TError, TData>
+) =>
+  useQuery<AllCategoryBannerTitleQuery, TError, TData>(
+    variables === undefined ? ['allCategoryBannerTitle'] : ['allCategoryBannerTitle', variables],
+    fetcher<AllCategoryBannerTitleQuery, AllCategoryBannerTitleQueryVariables>(
+      AllCategoryBannerTitleDocument,
+      variables
+    ),
+    options
+  );
+
+useAllCategoryBannerTitleQuery.getKey = (variables?: AllCategoryBannerTitleQueryVariables) =>
+  variables === undefined ? ['allCategoryBannerTitle'] : ['allCategoryBannerTitle', variables];
+export const useInfiniteAllCategoryBannerTitleQuery = <
+  TData = AllCategoryBannerTitleQuery,
+  TError = unknown
+>(
+  pageParamKey: keyof AllCategoryBannerTitleQueryVariables,
+  variables?: AllCategoryBannerTitleQueryVariables,
+  options?: UseInfiniteQueryOptions<AllCategoryBannerTitleQuery, TError, TData>
+) =>
+  useInfiniteQuery<AllCategoryBannerTitleQuery, TError, TData>(
+    variables === undefined
+      ? ['allCategoryBannerTitle.infinite']
+      : ['allCategoryBannerTitle.infinite', variables],
+    (metaData) =>
+      fetcher<AllCategoryBannerTitleQuery, AllCategoryBannerTitleQueryVariables>(
+        AllCategoryBannerTitleDocument,
+        { ...variables, ...(metaData.pageParam ?? {}) }
+      )(),
+    options
+  );
+
+useInfiniteAllCategoryBannerTitleQuery.getKey = (
+  variables?: AllCategoryBannerTitleQueryVariables
+) =>
+  variables === undefined
+    ? ['allCategoryBannerTitle.infinite']
+    : ['allCategoryBannerTitle.infinite', variables];
+useAllCategoryBannerTitleQuery.fetcher = (variables?: AllCategoryBannerTitleQueryVariables) =>
+  fetcher<AllCategoryBannerTitleQuery, AllCategoryBannerTitleQueryVariables>(
+    AllCategoryBannerTitleDocument,
+    variables
+  );
