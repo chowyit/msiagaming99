@@ -1,7 +1,7 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { GetStaticProps } from 'next';
 import { ReactElement } from 'react';
-import { useAllCategoryBannerTitleQuery, useAllHomepageQuery } from '../graphql/generates';
+import { useAllCategoryTitleQuery, useAllHomepageQuery } from '../graphql/generates';
 import CategoryBannerWithMenu from '../module/CategoryBanner/CategoryBannerWithMenu';
 import CategoryBannerWithoutMenu from '../module/CategoryBanner/CategoryBannerWithoutMenu';
 import Layout from '../module/Layout';
@@ -51,8 +51,8 @@ export const getStaticProps: GetStaticProps = async () => {
   await Promise.all([
     queryClient.prefetchQuery(useAllHomepageQuery.getKey(), useAllHomepageQuery.fetcher()),
     queryClient.prefetchQuery(
-      useAllCategoryBannerTitleQuery.getKey(),
-      useAllCategoryBannerTitleQuery.fetcher()
+      useAllCategoryTitleQuery.getKey(),
+      useAllCategoryTitleQuery.fetcher()
     ),
   ]);
   return {
