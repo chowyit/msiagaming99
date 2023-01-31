@@ -1,10 +1,48 @@
 query allHomepage {
-  allHomepage {
+  allHomepage(where: { active: { eq: true } }) {
+    active
     topBanners {
       name
       image {
+        ...ImageFragment
+      }
+    }
+    categoryBanners {
+      bannerTitle
+      hasMenu
+      gameType {
+        typeName
+        games {
+          name
+          slug {
+            current
+          }
+          price
+          image {
+            ...ImageFragment
+          }
+        }
+      }
+      games {
+        name
+        slug {
+          current
+        }
+        price
+        image {
+          ...ImageFragment
+        }
+      }
+    }
+    videoBanner {
+      name
+      video {
         asset {
-          url
+          status
+          assetId
+          filename
+          playbackId
+          thumbTime
         }
       }
     }

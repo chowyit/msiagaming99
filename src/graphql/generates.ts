@@ -1126,37 +1126,304 @@ export type TopBannerSorting = {
   name?: InputMaybe<SortOrder>;
 };
 
+export type ImageFragmentFragment = {
+  __typename?: 'Image';
+  asset?: {
+    __typename?: 'SanityImageAsset';
+    _id?: string | null;
+    _key?: string | null;
+    originalFilename?: string | null;
+    label?: string | null;
+    title?: string | null;
+    description?: string | null;
+    altText?: string | null;
+    sha1hash?: string | null;
+    extension?: string | null;
+    size?: number | null;
+    assetId?: string | null;
+    uploadId?: string | null;
+    url?: string | null;
+    path?: string | null;
+    metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+  } | null;
+  hotspot?: {
+    __typename?: 'SanityImageHotspot';
+    _key?: string | null;
+    _type?: string | null;
+    x?: number | null;
+    y?: number | null;
+    height?: number | null;
+    width?: number | null;
+  } | null;
+  crop?: {
+    __typename?: 'SanityImageCrop';
+    _key?: string | null;
+    _type?: string | null;
+    top?: number | null;
+    bottom?: number | null;
+    left?: number | null;
+    right?: number | null;
+  } | null;
+};
+
 export type AllHomepageQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllHomepageQuery = {
   __typename?: 'RootQuery';
   allHomepage: Array<{
     __typename?: 'Homepage';
+    active?: boolean | null;
     topBanners?: Array<{
       __typename?: 'TopBanner';
       name?: string | null;
       image?: {
         __typename?: 'Image';
-        asset?: { __typename?: 'SanityImageAsset'; url?: string | null } | null;
+        asset?: {
+          __typename?: 'SanityImageAsset';
+          _id?: string | null;
+          _key?: string | null;
+          originalFilename?: string | null;
+          label?: string | null;
+          title?: string | null;
+          description?: string | null;
+          altText?: string | null;
+          sha1hash?: string | null;
+          extension?: string | null;
+          size?: number | null;
+          assetId?: string | null;
+          uploadId?: string | null;
+          url?: string | null;
+          path?: string | null;
+          metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+        } | null;
+        hotspot?: {
+          __typename?: 'SanityImageHotspot';
+          _key?: string | null;
+          _type?: string | null;
+          x?: number | null;
+          y?: number | null;
+          height?: number | null;
+          width?: number | null;
+        } | null;
+        crop?: {
+          __typename?: 'SanityImageCrop';
+          _key?: string | null;
+          _type?: string | null;
+          top?: number | null;
+          bottom?: number | null;
+          left?: number | null;
+          right?: number | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    categoryBanners?: Array<{
+      __typename?: 'CategoryBanner';
+      bannerTitle?: string | null;
+      hasMenu?: boolean | null;
+      gameType?: Array<{
+        __typename?: 'CategoryBannerType';
+        typeName?: string | null;
+        games?: Array<{
+          __typename?: 'Product';
+          name?: string | null;
+          price?: number | null;
+          slug?: { __typename?: 'Slug'; current?: string | null } | null;
+          image?: Array<{
+            __typename?: 'Image';
+            asset?: {
+              __typename?: 'SanityImageAsset';
+              _id?: string | null;
+              _key?: string | null;
+              originalFilename?: string | null;
+              label?: string | null;
+              title?: string | null;
+              description?: string | null;
+              altText?: string | null;
+              sha1hash?: string | null;
+              extension?: string | null;
+              size?: number | null;
+              assetId?: string | null;
+              uploadId?: string | null;
+              url?: string | null;
+              path?: string | null;
+              metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+            } | null;
+            hotspot?: {
+              __typename?: 'SanityImageHotspot';
+              _key?: string | null;
+              _type?: string | null;
+              x?: number | null;
+              y?: number | null;
+              height?: number | null;
+              width?: number | null;
+            } | null;
+            crop?: {
+              __typename?: 'SanityImageCrop';
+              _key?: string | null;
+              _type?: string | null;
+              top?: number | null;
+              bottom?: number | null;
+              left?: number | null;
+              right?: number | null;
+            } | null;
+          } | null> | null;
+        } | null> | null;
+      } | null> | null;
+      games?: Array<{
+        __typename?: 'Product';
+        name?: string | null;
+        price?: number | null;
+        slug?: { __typename?: 'Slug'; current?: string | null } | null;
+        image?: Array<{
+          __typename?: 'Image';
+          asset?: {
+            __typename?: 'SanityImageAsset';
+            _id?: string | null;
+            _key?: string | null;
+            originalFilename?: string | null;
+            label?: string | null;
+            title?: string | null;
+            description?: string | null;
+            altText?: string | null;
+            sha1hash?: string | null;
+            extension?: string | null;
+            size?: number | null;
+            assetId?: string | null;
+            uploadId?: string | null;
+            url?: string | null;
+            path?: string | null;
+            metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+          } | null;
+          hotspot?: {
+            __typename?: 'SanityImageHotspot';
+            _key?: string | null;
+            _type?: string | null;
+            x?: number | null;
+            y?: number | null;
+            height?: number | null;
+            width?: number | null;
+          } | null;
+          crop?: {
+            __typename?: 'SanityImageCrop';
+            _key?: string | null;
+            _type?: string | null;
+            top?: number | null;
+            bottom?: number | null;
+            left?: number | null;
+            right?: number | null;
+          } | null;
+        } | null> | null;
+      } | null> | null;
+    } | null> | null;
+    videoBanner?: Array<{
+      __typename?: 'ProductVideo';
+      name?: string | null;
+      video?: {
+        __typename?: 'MuxVideo';
+        asset?: {
+          __typename?: 'MuxVideoAsset';
+          status?: string | null;
+          assetId?: string | null;
+          filename?: string | null;
+          playbackId?: string | null;
+          thumbTime?: number | null;
+        } | null;
       } | null;
     } | null> | null;
   }>;
 };
 
+export const ImageFragmentFragmentDoc = `
+    fragment ImageFragment on Image {
+  asset {
+    _id
+    _key
+    originalFilename
+    label
+    title
+    description
+    altText
+    sha1hash
+    extension
+    size
+    assetId
+    uploadId
+    url
+    path
+    metadata {
+      lqip
+    }
+  }
+  hotspot {
+    _key
+    _type
+    x
+    y
+    height
+    width
+  }
+  crop {
+    _key
+    _type
+    top
+    bottom
+    left
+    right
+  }
+}
+    `;
 export const AllHomepageDocument = `
     query allHomepage {
-  allHomepage {
+  allHomepage(where: {active: {eq: true}}) {
+    active
     topBanners {
       name
       image {
+        ...ImageFragment
+      }
+    }
+    categoryBanners {
+      bannerTitle
+      hasMenu
+      gameType {
+        typeName
+        games {
+          name
+          slug {
+            current
+          }
+          price
+          image {
+            ...ImageFragment
+          }
+        }
+      }
+      games {
+        name
+        slug {
+          current
+        }
+        price
+        image {
+          ...ImageFragment
+        }
+      }
+    }
+    videoBanner {
+      name
+      video {
         asset {
-          url
+          status
+          assetId
+          filename
+          playbackId
+          thumbTime
         }
       }
     }
   }
 }
-    `;
+    ${ImageFragmentFragmentDoc}`;
 export const useAllHomepageQuery = <TData = AllHomepageQuery, TError = unknown>(
   variables?: AllHomepageQueryVariables,
   options?: UseQueryOptions<AllHomepageQuery, TError, TData>
