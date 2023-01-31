@@ -4,10 +4,7 @@ import { useRouter } from 'next/router';
 import { uniqBy } from 'lodash';
 
 import { ReactElement } from 'react';
-import {
-  useAllCategoryBannerTitleQuery,
-  useGetCategoryBannerByIdQuery,
-} from '../graphql/generates';
+import { useAllCategoryTitleQuery, useAllGameByCategoryQuery } from '../graphql/generates';
 import CategoryBannerItems from '../module/CategoryBanner/CategoryBannerItems';
 import Layout from '../module/Layout';
 import { NextPageWithLayout } from '../shared/types';
@@ -17,16 +14,11 @@ const CategoryPage: NextPageWithLayout = () => {
   const { asPath } = useRouter();
   const param = asPath.replace('/', '');
 
-  const { data } = useGetCategoryBannerByIdQuery({
+  const { data } = useAllGameByCategoryQuery({
     Param: param,
   });
-  const allGames = data?.allCategoryBanner.map((item) => {
-    if (item.hasMenu) {
-      return item.gameType?.flatMap((game) => game?.games);
-    } else {
-      return item.games?.map((value) => value);
-    }
-  })[0];
+
+  const allGames = data?.allProduct;
 
   const filteredAllGames = uniqBy(allGames, 'name');
 
@@ -34,7 +26,7 @@ const CategoryPage: NextPageWithLayout = () => {
 
   return (
     <div className='flex justify-start mt-5 p-5 text-center'>
-      {allGames && allGames.length ? (
+      {filteredAllGames && filteredAllGames.length ? (
         <div className='flex flex-wrap gap-3'>
           {filteredAllGames.map((item, index) => {
             if (!item) return;
@@ -75,13 +67,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     //TODO Reduce the data size for page
     await Promise.all([
       queryClient.fetchQuery(
-        useGetCategoryBannerByIdQuery.getKey({ Param: params.categoryTitle as string }),
-        useGetCategoryBannerByIdQuery.fetcher({ Param: params.categoryTitle as string })
+        useAllGameByCategoryQuery.getKey({
+          Param: params.categoryTitle as string,
+        }),
+        useAllGameByCategoryQuery.fetcher({ Param: params.categoryTitle as string })
       ),
-      queryClient.fetchQuery(
-        useAllCategoryBannerTitleQuery.getKey(),
-        useAllCategoryBannerTitleQuery.fetcher()
-      ),
+      queryClient.fetchQuery(useAllCategoryTitleQuery.getKey(), useAllCategoryTitleQuery.fetcher()),
     ]);
   }
   return {
@@ -95,10 +86,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export const getStaticPaths = async () => {
   const queryClient = new QueryClient();
   const { allHomepage } = await queryClient.fetchQuery(
-    useAllCategoryBannerTitleQuery.getKey(),
-    useAllCategoryBannerTitleQuery.fetcher()
+    useAllCategoryTitleQuery.getKey(),
+    useAllCategoryTitleQuery.fetcher()
   );
-  const categoryBanners = allHomepage[0].categoryBanners;
+  const categoryBanners = allHomepage[0].category;
   const paths = categoryBanners?.reduce((acc, curr) => {
     if (curr?.id) {
       return acc.concat({ params: { categoryTitle: curr.id } });

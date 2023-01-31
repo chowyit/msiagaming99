@@ -49,12 +49,12 @@ query allHomepage {
   }
 }
 
-query allCategoryBannerTitle {
+query allCategoryTitle {
   allHomepage(where: { active: { eq: true } }) {
     active
-    categoryBanners {
+    category {
       id
-      bannerTitle
+      categoryName
     }
   }
 }
