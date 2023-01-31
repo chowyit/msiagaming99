@@ -1,5 +1,7 @@
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { GetStaticProps } from 'next';
 import { ReactElement } from 'react';
-import { useAllHomepageQuery } from '../graphql/generates';
+import { useAllCategoryBannerTitleQuery, useAllHomepageQuery } from '../graphql/generates';
 import CategoryBannerWithMenu from '../module/CategoryBanner/CategoryBannerWithMenu';
 import CategoryBannerWithoutMenu from '../module/CategoryBanner/CategoryBannerWithoutMenu';
 import Layout from '../module/Layout';
@@ -42,6 +44,23 @@ const Home: NextPageWithLayout = () => {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+  await Promise.all([
+    queryClient.prefetchQuery(useAllHomepageQuery.getKey(), useAllHomepageQuery.fetcher()),
+    queryClient.prefetchQuery(
+      useAllCategoryBannerTitleQuery.getKey(),
+      useAllCategoryBannerTitleQuery.fetcher()
+    ),
+  ]);
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 10,
+  };
 };
 
 export default Home;

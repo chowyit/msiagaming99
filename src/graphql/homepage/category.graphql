@@ -1,0 +1,28 @@
+query getCategoryBannerById($Param: String) {
+  allCategoryBanner(where: { id: { eq: $Param } }) {
+    hasMenu
+    gameType {
+      typeName
+      games {
+        name
+        slug {
+          current
+        }
+        price
+        image {
+          ...ImageFragment
+        }
+      }
+    }
+    games {
+      name
+      slug {
+        current
+      }
+      price
+      image {
+        ...ImageFragment
+      }
+    }
+  }
+}

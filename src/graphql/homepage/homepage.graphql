@@ -48,3 +48,13 @@ query allHomepage {
     }
   }
 }
+
+query allCategoryBannerTitle {
+  allHomepage(where: { active: { eq: true } }) {
+    active
+    categoryBanners {
+      id
+      bannerTitle
+    }
+  }
+}
