@@ -1220,6 +1220,55 @@ export type AllHomepageQuery = {
       __typename?: 'CategoryBanner';
       bannerTitle?: string | null;
       hasMenu?: boolean | null;
+      gameType?: Array<{
+        __typename?: 'CategoryBannerType';
+        typeName?: string | null;
+        games?: Array<{
+          __typename?: 'Product';
+          name?: string | null;
+          price?: number | null;
+          slug?: { __typename?: 'Slug'; current?: string | null } | null;
+          image?: Array<{
+            __typename?: 'Image';
+            asset?: {
+              __typename?: 'SanityImageAsset';
+              _id?: string | null;
+              _key?: string | null;
+              originalFilename?: string | null;
+              label?: string | null;
+              title?: string | null;
+              description?: string | null;
+              altText?: string | null;
+              sha1hash?: string | null;
+              extension?: string | null;
+              size?: number | null;
+              assetId?: string | null;
+              uploadId?: string | null;
+              url?: string | null;
+              path?: string | null;
+              metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+            } | null;
+            hotspot?: {
+              __typename?: 'SanityImageHotspot';
+              _key?: string | null;
+              _type?: string | null;
+              x?: number | null;
+              y?: number | null;
+              height?: number | null;
+              width?: number | null;
+            } | null;
+            crop?: {
+              __typename?: 'SanityImageCrop';
+              _key?: string | null;
+              _type?: string | null;
+              top?: number | null;
+              bottom?: number | null;
+              left?: number | null;
+              right?: number | null;
+            } | null;
+          } | null> | null;
+        } | null> | null;
+      } | null> | null;
       games?: Array<{
         __typename?: 'Product';
         name?: string | null;
@@ -1336,6 +1385,19 @@ export const AllHomepageDocument = `
     categoryBanners {
       bannerTitle
       hasMenu
+      gameType {
+        typeName
+        games {
+          name
+          slug {
+            current
+          }
+          price
+          image {
+            ...ImageFragment
+          }
+        }
+      }
       games {
         name
         slug {
@@ -1380,7 +1442,7 @@ export const useInfiniteAllHomepageQuery = <TData = AllHomepageQuery, TError = u
   options?: UseInfiniteQueryOptions<AllHomepageQuery, TError, TData>
 ) =>
   useInfiniteQuery<AllHomepageQuery, TError, TData>(
-    ['allHomepage.infinite', variables],
+    variables === undefined ? ['allHomepage.infinite'] : ['allHomepage.infinite', variables],
     (metaData) =>
       fetcher<AllHomepageQuery, AllHomepageQueryVariables>(AllHomepageDocument, {
         ...variables,

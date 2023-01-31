@@ -10,6 +10,19 @@ query allHomepage {
     categoryBanners {
       bannerTitle
       hasMenu
+      gameType {
+        typeName
+        games {
+          name
+          slug {
+            current
+          }
+          price
+          image {
+            ...ImageFragment
+          }
+        }
+      }
       games {
         name
         slug {

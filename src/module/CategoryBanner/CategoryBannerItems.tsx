@@ -5,27 +5,39 @@ import NextImage from 'next/image';
 
 interface IProps {
   image: Maybe<Image>;
-  price: number;
   name: string;
+  price?: number;
+  background?: boolean;
 }
 
-const CategoryBannerItems = ({ image, price, name }: IProps) => {
+const CategoryBannerItems = ({ image, price, name, background }: IProps) => {
   return (
-    <div className='flex flex-col border gap-2 h-[300px] w-[260px] cursor-pointer hover:scale-105 ease-in-out duration-300 bg-white'>
+    <div
+      className={`p-2 flex flex-col border gap-2 h-[400px] w-[230px] cursor-pointer hover:scale-105 ease-in-out duration-300 ${
+        background ? 'bg-slate-50' : 'bg-white'
+      } `}
+    >
       {image ? (
-        <div className='p-2'>
-          <SanityImage imageProps={image} alt='product' height={260} width={260} quality={100} />
+        <div>
+          <SanityImage
+            imageProps={image}
+            alt='product'
+            height={260}
+            width={250}
+            quality={100}
+            className='h-[200px]'
+          />
         </div>
       ) : (
         <div>
-          <NextImage alt='game' src={NoImage} />
+          <NextImage alt='game' src={NoImage} height={260} width={260} />
         </div>
       )}
-      <div className='mt-5'>
+      <div className='mt-5 whitespace-normal'>
         <span>{name}</span>
       </div>
       <div className='mt-auto'>
-        <span className='text-red-500 font-semibold'>RM{price}</span>
+        {price && <span className='text-red-500 font-semibold'>RM{price}</span>}
       </div>
     </div>
   );

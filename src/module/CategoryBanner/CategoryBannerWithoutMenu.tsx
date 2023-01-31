@@ -22,7 +22,7 @@ const CategoryBannerWithoutMenu = ({ title, games }: IProps) => {
   if (!games) return null;
 
   return (
-    <div className='flex flex-col justify-center text-center gap-3 relative w-full bg-slate-50 p-2'>
+    <div className='flex flex-col justify-center gap-3 relative w-full bg-slate-50 p-2'>
       <div className='flex'>
         <p className='text-2xl'>{title}</p>
       </div>
@@ -32,7 +32,7 @@ const CategoryBannerWithoutMenu = ({ title, games }: IProps) => {
         </div>
         <div
           id='slider'
-          className='flex relative items-center overflow-x-auto scroll scroll-smooth whitespace-nowrap scrollbar-hide'
+          className='flex text-center relative overflow-x-auto scroll scroll-smooth whitespace-nowrap scrollbar-hide'
         >
           <div className='flex flex-row gap-3 p-2'>
             {games.map((item, index) => {

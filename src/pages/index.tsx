@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { useAllHomepageQuery } from '../graphql/generates';
+import CategoryBannerWithMenu from '../module/CategoryBanner/CategoryBannerWithMenu';
 import CategoryBannerWithoutMenu from '../module/CategoryBanner/CategoryBannerWithoutMenu';
 import Layout from '../module/Layout';
 import TopBannerCarousel from '../module/Top Banner';
@@ -24,9 +25,9 @@ const Home: NextPageWithLayout = () => {
           activeHomepage.categoryBanners.map((banner, index) => {
             if (!banner) return;
             return (
-              <div key={index} className='flex justify-start'>
+              <div key={index} className='flex justify-start w-full'>
                 {banner.hasMenu ? (
-                  <div>Working in Progress</div>
+                  <CategoryBannerWithMenu data={banner.gameType} title={banner.bannerTitle} />
                 ) : (
                   <CategoryBannerWithoutMenu title={banner.bannerTitle} games={banner.games} />
                 )}
