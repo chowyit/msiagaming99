@@ -26,3 +26,21 @@ query getCategoryBannerById($Param: String) {
     }
   }
 }
+
+query allGameByCategory($Param: String) {
+  allProduct(where: { category: { id: { eq: $Param } } }, sort: [{ slug: { current: ASC } }]) {
+    name
+    image {
+      ...ImageFragment
+    }
+    category {
+      id
+      categoryName
+    }
+    slug {
+      current
+    }
+    price
+    descriptionRaw
+  }
+}

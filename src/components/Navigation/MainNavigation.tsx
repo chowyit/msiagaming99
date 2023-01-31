@@ -1,13 +1,14 @@
 import SearchBar from './SearchBar';
 import Logo from './../../assets/img/Logo.jpeg';
 import Image from 'next/image';
-import { useAllCategoryBannerTitleQuery } from '../../graphql/generates';
+
 import Link from 'next/link';
+import { useAllCategoryTitleQuery } from '../../graphql/generates';
 
 const MainNavigation = () => {
-  const { data } = useAllCategoryBannerTitleQuery();
+  const { data } = useAllCategoryTitleQuery();
   const activeHomepage = data?.allHomepage.filter((homepage) => homepage.active === true)[0];
-  const bannerTitles = activeHomepage?.categoryBanners;
+  const bannerTitles = activeHomepage?.category;
 
   return (
     <div className='h-[88px] bg-white flex gap-10 flex-row w-full justify-between px-5 align-middle items-center'>
@@ -26,10 +27,10 @@ const MainNavigation = () => {
             bannerTitles.map((item, index) => {
               if (!item) return;
               if (!item.id) return;
-              if (!item.bannerTitle) return;
+              if (!item.categoryName) return;
               return (
                 <Link href={`/${item.id.replace(/\s/g, '')}`} key={index}>
-                  {item.bannerTitle}
+                  {item.categoryName}
                 </Link>
               );
             })}
