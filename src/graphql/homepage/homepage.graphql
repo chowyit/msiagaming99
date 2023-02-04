@@ -12,8 +12,37 @@ query allHomepage {
       hasMenu
       gameType {
         typeName
+        spotlightA {
+          name
+          category {
+            id
+          }
+          slug {
+            current
+          }
+          price
+          image {
+            ...ImageFragment
+          }
+        }
+        spotlightB {
+          name
+          category {
+            id
+          }
+          slug {
+            current
+          }
+          price
+          image {
+            ...ImageFragment
+          }
+        }
         games {
           name
+          category {
+            id
+          }
           slug {
             current
           }
@@ -25,6 +54,9 @@ query allHomepage {
       }
       games {
         name
+        category {
+          id
+        }
         slug {
           current
         }

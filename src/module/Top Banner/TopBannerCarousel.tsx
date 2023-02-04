@@ -62,7 +62,7 @@ const TopBannerCarousel = ({ banners }: IProps) => {
                 alt='top-banner'
                 width={1200}
                 height={600}
-                objectFit='fill'
+                objectFit='contain'
                 className='transition'
                 quality={100}
               />
