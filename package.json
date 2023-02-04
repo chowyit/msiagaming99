@@ -8,6 +8,7 @@
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@portabletext/react": "^2.0.1",
     "@sanity/client": "^4.0.1",
     "@tanstack/react-query": "^4.22.0",
     "@tanstack/react-query-devtools": "^4.22.0",

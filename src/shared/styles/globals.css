@@ -8,4 +8,9 @@
         src: url('../../assets/fonts/Nunito.ttf') format('truetype');
         font-style: normal;
     }
+    @font-face {
+        font-family: 'BebasNeue';
+        src: url('../../assets/fonts/BebasNeue.ttf') format('truetype');
+        font-style: normal;
+    }
 }

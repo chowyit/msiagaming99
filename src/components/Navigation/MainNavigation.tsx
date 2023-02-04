@@ -18,10 +18,10 @@ const MainNavigation = () => {
         </Link>
       </div>
       <div className='flex flex-row gap-24'>
-        <div className='flex'>
+        <div className='flex items-center'>
           <Link href='/'>Homepage</Link>
         </div>
-        <div className='flex gap-24'>
+        <div className='flex gap-24 items-center'>
           {bannerTitles &&
             bannerTitles.length &&
             bannerTitles.map((item, index) => {

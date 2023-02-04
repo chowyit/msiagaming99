@@ -1,7 +1,8 @@
-import { CategoryBannerType, Maybe } from '../../graphql/generates';
+import { CategoryBannerType, Maybe, Product } from '../../graphql/generates';
 import { AiFillCaretRight } from 'react-icons/ai';
 import { useMemo, useState } from 'react';
 import CategoryBannerItems from './CategoryBannerItems';
+import Link from 'next/link';
 
 interface IProps {
   data: Maybe<Array<Maybe<CategoryBannerType>>> | undefined;
@@ -25,6 +26,9 @@ const CategoryBannerWithMenu = ({ data, title }: IProps) => {
       return data.find((type) => type?.typeName === selectedType);
     }
   }, [data, selectedType]);
+
+  const spotlightA = getGamesForSelectedType?.spotlightA;
+  const spotlightB = getGamesForSelectedType?.spotlightB;
 
   if (!data) return null;
 
@@ -58,28 +62,60 @@ const CategoryBannerWithMenu = ({ data, title }: IProps) => {
         </div>
       </div>
       <div className='flex flex-row items-center text-center'>
-        <div className='flex flex-row flex-wrap p-2 gap-3'>
-          <CategoryBannerItems image={null} name={'Testing'} background={true} />
-          <CategoryBannerItems image={null} name={'Testing'} background={true} />
+        <div className='flex flex-col flex-wrap p-2 gap-3'>
+          {spotlightA &&
+            spotlightA.image &&
+            spotlightA.image.length &&
+            spotlightA.name &&
+            spotlightA.category &&
+            spotlightA.slug &&
+            spotlightA.slug.current && (
+              <Link href={`/${spotlightA.category.id}/${spotlightA.slug.current}`}>
+                <CategoryBannerItems
+                  image={spotlightA.image[0]}
+                  name={spotlightA.name}
+                  background={true}
+                />
+              </Link>
+            )}
+          {spotlightB &&
+            spotlightB.image &&
+            spotlightB.image.length &&
+            spotlightB.name &&
+            spotlightB.category &&
+            spotlightB.slug &&
+            spotlightB.slug.current && (
+              <Link href={`/${spotlightB.category.id}/${spotlightB.slug.current}`}>
+                <CategoryBannerItems
+                  image={spotlightB.image[0]}
+                  name={spotlightB.name}
+                  background={true}
+                />
+              </Link>
+            )}
         </div>
         <div className='flex flex-row gap-3 p-2 flex-wrap'>
           {getGamesForSelectedType &&
             getGamesForSelectedType.games &&
-            getGamesForSelectedType.games.length &&
+            getGamesForSelectedType.games.length > 0 &&
             getGamesForSelectedType.games.map((game, index) => {
               if (!game) return;
               if (!game.image) return;
               if (!game.image.length) return;
               if (!game.name) return;
               if (!game.price) return;
+              if (!game.category) return;
+              if (!game.slug) return;
+              if (!game.slug.current) return;
               return (
-                <CategoryBannerItems
-                  image={game.image[0]}
-                  name={game.name}
-                  price={game.price}
-                  background={true}
-                  key={index}
-                />
+                <Link key={index} href={`/${game.category.id}/${game.slug.current}`}>
+                  <CategoryBannerItems
+                    image={game.image[0]}
+                    name={game.name}
+                    price={game.price}
+                    background={true}
+                  />
+                </Link>
               );
             })}
         </div>

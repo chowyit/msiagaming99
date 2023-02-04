@@ -5,6 +5,7 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     fontFamily: {
+      number: 'BebasNeue, sans-serif',
       sans: ['Nunito', ...defaultTheme.fontFamily.sans],
     },
     extend: {

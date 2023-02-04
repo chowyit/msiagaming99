@@ -1401,10 +1401,103 @@ export type AllHomepageQuery = {
       gameType?: Array<{
         __typename?: 'CategoryBannerType';
         typeName?: string | null;
+        spotlightA?: {
+          __typename?: 'Product';
+          name?: string | null;
+          price?: number | null;
+          category?: { __typename?: 'GameCategory'; id?: string | null } | null;
+          slug?: { __typename?: 'Slug'; current?: string | null } | null;
+          image?: Array<{
+            __typename?: 'Image';
+            asset?: {
+              __typename?: 'SanityImageAsset';
+              _id?: string | null;
+              _key?: string | null;
+              originalFilename?: string | null;
+              label?: string | null;
+              title?: string | null;
+              description?: string | null;
+              altText?: string | null;
+              sha1hash?: string | null;
+              extension?: string | null;
+              size?: number | null;
+              assetId?: string | null;
+              uploadId?: string | null;
+              url?: string | null;
+              path?: string | null;
+              metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+            } | null;
+            hotspot?: {
+              __typename?: 'SanityImageHotspot';
+              _key?: string | null;
+              _type?: string | null;
+              x?: number | null;
+              y?: number | null;
+              height?: number | null;
+              width?: number | null;
+            } | null;
+            crop?: {
+              __typename?: 'SanityImageCrop';
+              _key?: string | null;
+              _type?: string | null;
+              top?: number | null;
+              bottom?: number | null;
+              left?: number | null;
+              right?: number | null;
+            } | null;
+          } | null> | null;
+        } | null;
+        spotlightB?: {
+          __typename?: 'Product';
+          name?: string | null;
+          price?: number | null;
+          category?: { __typename?: 'GameCategory'; id?: string | null } | null;
+          slug?: { __typename?: 'Slug'; current?: string | null } | null;
+          image?: Array<{
+            __typename?: 'Image';
+            asset?: {
+              __typename?: 'SanityImageAsset';
+              _id?: string | null;
+              _key?: string | null;
+              originalFilename?: string | null;
+              label?: string | null;
+              title?: string | null;
+              description?: string | null;
+              altText?: string | null;
+              sha1hash?: string | null;
+              extension?: string | null;
+              size?: number | null;
+              assetId?: string | null;
+              uploadId?: string | null;
+              url?: string | null;
+              path?: string | null;
+              metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+            } | null;
+            hotspot?: {
+              __typename?: 'SanityImageHotspot';
+              _key?: string | null;
+              _type?: string | null;
+              x?: number | null;
+              y?: number | null;
+              height?: number | null;
+              width?: number | null;
+            } | null;
+            crop?: {
+              __typename?: 'SanityImageCrop';
+              _key?: string | null;
+              _type?: string | null;
+              top?: number | null;
+              bottom?: number | null;
+              left?: number | null;
+              right?: number | null;
+            } | null;
+          } | null> | null;
+        } | null;
         games?: Array<{
           __typename?: 'Product';
           name?: string | null;
           price?: number | null;
+          category?: { __typename?: 'GameCategory'; id?: string | null } | null;
           slug?: { __typename?: 'Slug'; current?: string | null } | null;
           image?: Array<{
             __typename?: 'Image';
@@ -1451,6 +1544,7 @@ export type AllHomepageQuery = {
         __typename?: 'Product';
         name?: string | null;
         price?: number | null;
+        category?: { __typename?: 'GameCategory'; id?: string | null } | null;
         slug?: { __typename?: 'Slug'; current?: string | null } | null;
         image?: Array<{
           __typename?: 'Image';
@@ -1523,6 +1617,69 @@ export type AllCategoryTitleQuery = {
       id?: string | null;
       categoryName?: string | null;
     } | null> | null;
+  }>;
+};
+
+export type GameBySlugIdQueryVariables = Exact<{
+  Param?: InputMaybe<Scalars['String']>;
+}>;
+
+export type GameBySlugIdQuery = {
+  __typename?: 'RootQuery';
+  allProduct: Array<{
+    __typename?: 'Product';
+    name?: string | null;
+    price?: number | null;
+    descriptionRaw?: any | null;
+    image?: Array<{
+      __typename?: 'Image';
+      asset?: {
+        __typename?: 'SanityImageAsset';
+        _id?: string | null;
+        _key?: string | null;
+        originalFilename?: string | null;
+        label?: string | null;
+        title?: string | null;
+        description?: string | null;
+        altText?: string | null;
+        sha1hash?: string | null;
+        extension?: string | null;
+        size?: number | null;
+        assetId?: string | null;
+        uploadId?: string | null;
+        url?: string | null;
+        path?: string | null;
+        metadata?: { __typename?: 'SanityImageMetadata'; lqip?: string | null } | null;
+      } | null;
+      hotspot?: {
+        __typename?: 'SanityImageHotspot';
+        _key?: string | null;
+        _type?: string | null;
+        x?: number | null;
+        y?: number | null;
+        height?: number | null;
+        width?: number | null;
+      } | null;
+      crop?: {
+        __typename?: 'SanityImageCrop';
+        _key?: string | null;
+        _type?: string | null;
+        top?: number | null;
+        bottom?: number | null;
+        left?: number | null;
+        right?: number | null;
+      } | null;
+    } | null> | null;
+  }>;
+};
+
+export type GetAllProductSlugQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllProductSlugQuery = {
+  __typename?: 'RootQuery';
+  allProduct: Array<{
+    __typename?: 'Product';
+    slug?: { __typename?: 'Slug'; current?: string | null } | null;
   }>;
 };
 
@@ -1717,8 +1874,37 @@ export const AllHomepageDocument = `
       hasMenu
       gameType {
         typeName
+        spotlightA {
+          name
+          category {
+            id
+          }
+          slug {
+            current
+          }
+          price
+          image {
+            ...ImageFragment
+          }
+        }
+        spotlightB {
+          name
+          category {
+            id
+          }
+          slug {
+            current
+          }
+          price
+          image {
+            ...ImageFragment
+          }
+        }
         games {
           name
+          category {
+            id
+          }
           slug {
             current
           }
@@ -1730,6 +1916,9 @@ export const AllHomepageDocument = `
       }
       games {
         name
+        category {
+          id
+        }
         slug {
           current
         }
@@ -1835,5 +2024,98 @@ useInfiniteAllCategoryTitleQuery.getKey = (variables?: AllCategoryTitleQueryVari
 useAllCategoryTitleQuery.fetcher = (variables?: AllCategoryTitleQueryVariables) =>
   fetcher<AllCategoryTitleQuery, AllCategoryTitleQueryVariables>(
     AllCategoryTitleDocument,
+    variables
+  );
+export const GameBySlugIdDocument = `
+    query gameBySlugId($Param: String) {
+  allProduct(where: {slug: {current: {eq: $Param}}}) {
+    name
+    image {
+      ...ImageFragment
+    }
+    price
+    descriptionRaw
+  }
+}
+    ${ImageFragmentFragmentDoc}`;
+export const useGameBySlugIdQuery = <TData = GameBySlugIdQuery, TError = unknown>(
+  variables?: GameBySlugIdQueryVariables,
+  options?: UseQueryOptions<GameBySlugIdQuery, TError, TData>
+) =>
+  useQuery<GameBySlugIdQuery, TError, TData>(
+    variables === undefined ? ['gameBySlugId'] : ['gameBySlugId', variables],
+    fetcher<GameBySlugIdQuery, GameBySlugIdQueryVariables>(GameBySlugIdDocument, variables),
+    options
+  );
+
+useGameBySlugIdQuery.getKey = (variables?: GameBySlugIdQueryVariables) =>
+  variables === undefined ? ['gameBySlugId'] : ['gameBySlugId', variables];
+export const useInfiniteGameBySlugIdQuery = <TData = GameBySlugIdQuery, TError = unknown>(
+  pageParamKey: keyof GameBySlugIdQueryVariables,
+  variables?: GameBySlugIdQueryVariables,
+  options?: UseInfiniteQueryOptions<GameBySlugIdQuery, TError, TData>
+) =>
+  useInfiniteQuery<GameBySlugIdQuery, TError, TData>(
+    variables === undefined ? ['gameBySlugId.infinite'] : ['gameBySlugId.infinite', variables],
+    (metaData) =>
+      fetcher<GameBySlugIdQuery, GameBySlugIdQueryVariables>(GameBySlugIdDocument, {
+        ...variables,
+        ...(metaData.pageParam ? { [pageParamKey]: metaData.pageParam } : {}),
+      })(),
+    options
+  );
+
+useInfiniteGameBySlugIdQuery.getKey = (variables?: GameBySlugIdQueryVariables) =>
+  variables === undefined ? ['gameBySlugId.infinite'] : ['gameBySlugId.infinite', variables];
+useGameBySlugIdQuery.fetcher = (variables?: GameBySlugIdQueryVariables) =>
+  fetcher<GameBySlugIdQuery, GameBySlugIdQueryVariables>(GameBySlugIdDocument, variables);
+export const GetAllProductSlugDocument = `
+    query getAllProductSlug {
+  allProduct {
+    slug {
+      current
+    }
+  }
+}
+    `;
+export const useGetAllProductSlugQuery = <TData = GetAllProductSlugQuery, TError = unknown>(
+  variables?: GetAllProductSlugQueryVariables,
+  options?: UseQueryOptions<GetAllProductSlugQuery, TError, TData>
+) =>
+  useQuery<GetAllProductSlugQuery, TError, TData>(
+    variables === undefined ? ['getAllProductSlug'] : ['getAllProductSlug', variables],
+    fetcher<GetAllProductSlugQuery, GetAllProductSlugQueryVariables>(
+      GetAllProductSlugDocument,
+      variables
+    ),
+    options
+  );
+
+useGetAllProductSlugQuery.getKey = (variables?: GetAllProductSlugQueryVariables) =>
+  variables === undefined ? ['getAllProductSlug'] : ['getAllProductSlug', variables];
+export const useInfiniteGetAllProductSlugQuery = <TData = GetAllProductSlugQuery, TError = unknown>(
+  pageParamKey: keyof GetAllProductSlugQueryVariables,
+  variables?: GetAllProductSlugQueryVariables,
+  options?: UseInfiniteQueryOptions<GetAllProductSlugQuery, TError, TData>
+) =>
+  useInfiniteQuery<GetAllProductSlugQuery, TError, TData>(
+    variables === undefined
+      ? ['getAllProductSlug.infinite']
+      : ['getAllProductSlug.infinite', variables],
+    (metaData) =>
+      fetcher<GetAllProductSlugQuery, GetAllProductSlugQueryVariables>(GetAllProductSlugDocument, {
+        ...variables,
+        ...(metaData.pageParam ?? {}),
+      })(),
+    options
+  );
+
+useInfiniteGetAllProductSlugQuery.getKey = (variables?: GetAllProductSlugQueryVariables) =>
+  variables === undefined
+    ? ['getAllProductSlug.infinite']
+    : ['getAllProductSlug.infinite', variables];
+useGetAllProductSlugQuery.fetcher = (variables?: GetAllProductSlugQueryVariables) =>
+  fetcher<GetAllProductSlugQuery, GetAllProductSlugQueryVariables>(
+    GetAllProductSlugDocument,
     variables
   );

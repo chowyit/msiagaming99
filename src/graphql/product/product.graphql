@@ -1,0 +1,18 @@
+query gameBySlugId($Param: String) {
+  allProduct(where: { slug: { current: { eq: $Param } } }) {
+    name
+    image {
+      ...ImageFragment
+    }
+    price
+    descriptionRaw
+  }
+}
+
+query getAllProductSlug {
+  allProduct {
+    slug {
+      current
+    }
+  }
+}
