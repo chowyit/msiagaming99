@@ -70,7 +70,7 @@ const ProductPhoto = ({ images }: IProps) => {
           </div>
         )}
       </div>
-      <div className='flex w-full h-full max-h-[500px]'>
+      <div className='flex w-full h-full max-h-[500px] justify-center'>
         {selectedImage && selectedImage !== null && (
           <SanityImage imageProps={selectedImage} alt='selected-product' objectFit='contain' />
         )}

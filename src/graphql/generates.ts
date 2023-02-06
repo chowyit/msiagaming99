@@ -472,7 +472,7 @@ export type Product = Document & {
   descriptionRaw?: Maybe<Scalars['JSON']>;
   image?: Maybe<Array<Maybe<Image>>>;
   name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['String']>;
   slug?: Maybe<Slug>;
 };
 
@@ -487,7 +487,7 @@ export type ProductFilter = {
   _updatedAt?: InputMaybe<DatetimeFilter>;
   category?: InputMaybe<GameCategoryFilter>;
   name?: InputMaybe<StringFilter>;
-  price?: InputMaybe<FloatFilter>;
+  price?: InputMaybe<StringFilter>;
   slug?: InputMaybe<SlugFilter>;
 };
 
@@ -1194,7 +1194,7 @@ export type GetCategoryBannerByIdQuery = {
       games?: Array<{
         __typename?: 'Product';
         name?: string | null;
-        price?: number | null;
+        price?: string | null;
         slug?: { __typename?: 'Slug'; current?: string | null } | null;
         image?: Array<{
           __typename?: 'Image';
@@ -1240,7 +1240,7 @@ export type GetCategoryBannerByIdQuery = {
     games?: Array<{
       __typename?: 'Product';
       name?: string | null;
-      price?: number | null;
+      price?: string | null;
       slug?: { __typename?: 'Slug'; current?: string | null } | null;
       image?: Array<{
         __typename?: 'Image';
@@ -1294,7 +1294,7 @@ export type AllGameByCategoryQuery = {
   allProduct: Array<{
     __typename?: 'Product';
     name?: string | null;
-    price?: number | null;
+    price?: string | null;
     descriptionRaw?: any | null;
     image?: Array<{
       __typename?: 'Image';
@@ -1404,7 +1404,7 @@ export type AllHomepageQuery = {
         spotlightA?: {
           __typename?: 'Product';
           name?: string | null;
-          price?: number | null;
+          price?: string | null;
           category?: { __typename?: 'GameCategory'; id?: string | null } | null;
           slug?: { __typename?: 'Slug'; current?: string | null } | null;
           image?: Array<{
@@ -1450,7 +1450,7 @@ export type AllHomepageQuery = {
         spotlightB?: {
           __typename?: 'Product';
           name?: string | null;
-          price?: number | null;
+          price?: string | null;
           category?: { __typename?: 'GameCategory'; id?: string | null } | null;
           slug?: { __typename?: 'Slug'; current?: string | null } | null;
           image?: Array<{
@@ -1496,7 +1496,7 @@ export type AllHomepageQuery = {
         games?: Array<{
           __typename?: 'Product';
           name?: string | null;
-          price?: number | null;
+          price?: string | null;
           category?: { __typename?: 'GameCategory'; id?: string | null } | null;
           slug?: { __typename?: 'Slug'; current?: string | null } | null;
           image?: Array<{
@@ -1543,7 +1543,7 @@ export type AllHomepageQuery = {
       games?: Array<{
         __typename?: 'Product';
         name?: string | null;
-        price?: number | null;
+        price?: string | null;
         category?: { __typename?: 'GameCategory'; id?: string | null } | null;
         slug?: { __typename?: 'Slug'; current?: string | null } | null;
         image?: Array<{
@@ -1629,7 +1629,7 @@ export type GameBySlugIdQuery = {
   allProduct: Array<{
     __typename?: 'Product';
     name?: string | null;
-    price?: number | null;
+    price?: string | null;
     descriptionRaw?: any | null;
     image?: Array<{
       __typename?: 'Image';
