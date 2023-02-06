@@ -6,7 +6,7 @@ import NextImage from 'next/image';
 interface IProps {
   image: Maybe<Image>;
   name: string;
-  price?: number;
+  price?: string;
   background?: boolean;
 }
 
