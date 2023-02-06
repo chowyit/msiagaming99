@@ -3,7 +3,7 @@ import { FiPlusSquare, FiMinusSquare } from 'react-icons/fi';
 
 interface IProps {
   name: string;
-  price: number;
+  price: string;
 }
 
 const ProductDetail = ({ name, price }: IProps) => {
