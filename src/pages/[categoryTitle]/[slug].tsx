@@ -1,6 +1,8 @@
 import { PortableText } from '@portabletext/react';
+import urlBuilder from '@sanity/image-url';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { GetStaticProps } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ReactElement, useMemo } from 'react';
 import {
@@ -17,10 +19,15 @@ const ProductPage: NextPageWithLayout = () => {
   const { query } = useRouter();
   const slug = query.slug;
   const { data } = useGameBySlugIdQuery({ Param: slug as string });
+  const imageBuilder = urlBuilder({ projectId: 'ioraf0d0', dataset: 'production' });
 
   const game = useMemo(() => {
     return data?.allProduct.map((value) => value);
   }, [data]);
+
+  const urlFor = (asset: any) => {
+    return imageBuilder.image(asset);
+  };
 
   const gameImages = useMemo(() => {
     if (!game) return;
@@ -53,7 +60,14 @@ const ProductPage: NextPageWithLayout = () => {
                 if (!item.name) return;
                 if (!item.price) return;
                 if (index > 0) return;
-                return <ProductDetail name={item.name} price={item.price} key={index} />;
+                return (
+                  <ProductDetail
+                    name={item.name}
+                    price={item.price}
+                    id={slug as string}
+                    key={index}
+                  />
+                );
               })}
           </div>
         </div>
@@ -67,19 +81,21 @@ const ProductPage: NextPageWithLayout = () => {
               <PortableText
                 value={game[0].descriptionRaw}
                 components={{
-                  // types: {
-                  //   image: ({ value }) => {
-                  //     const { width, height } = getImageDimensions(value);
-                  //     return (
-                  //       <Image
-                  //         src={urlBuilder().image(value).fit('max').auto('format').url()}
-                  //         alt='description-image'
-                  //         loading='lazy'
-                  //         style={{ aspectRatio: width / height }}
-                  //       />
-                  //     );
-                  //   },
-                  // },
+                  types: {
+                    image: ({ value }) => {
+                      return (
+                        <div className='flex justify-center mt-5'>
+                          <Image
+                            src={urlFor(value.asset).url()}
+                            alt='description-image'
+                            width={800}
+                            height={100}
+                            quality={100}
+                          />
+                        </div>
+                      );
+                    },
+                  },
                   block: {
                     h1: ({ children }) => <h1>{children}</h1>,
                     h2: ({ children }) => <h2>{children}</h2>,

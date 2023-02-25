@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { FiPlusSquare, FiMinusSquare } from 'react-icons/fi';
+import { useCartHook } from '../../../shared/hooks/useCartHook';
 
 interface IProps {
   name: string;
   price: string;
+  id: string;
 }
 
-const ProductDetail = ({ name, price }: IProps) => {
-  const [quantity, setQuantity] = useState(0);
+const ProductDetail = ({ name, price, id }: IProps) => {
+  const [quantity, setQuantity] = useState(1);
+  const { addItemToCart } = useCartHook();
 
   const addQty = () => {
     setQuantity(quantity + 1);
@@ -18,7 +21,13 @@ const ProductDetail = ({ name, price }: IProps) => {
   };
 
   const handleAddToCart = () => {
-    //Function to add to cart
+    const product = {
+      id: id,
+      name: name,
+      price: parseInt(price),
+      quantity: quantity,
+    };
+    addItemToCart(product);
   };
 
   return (
@@ -53,7 +62,7 @@ const ProductDetail = ({ name, price }: IProps) => {
       </div>
       {/* Add to Cart Button */}
       <div className='border flex justify-center h-12 bg-orange-400 cursor-pointer'>
-        <button className='text-white font-semibold text-lg' onClick={handleAddToCart}>
+        <button className='text-white font-semibold text-lg w-full' onClick={handleAddToCart}>
           <p>Add To Cart</p>
         </button>
       </div>
