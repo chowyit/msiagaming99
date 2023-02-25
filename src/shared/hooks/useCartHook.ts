@@ -20,7 +20,11 @@ export const useCartHook = () => {
 
   const [cart, setCart] = useState<ICartProps[]>([]);
 
-  useEffect(() => setCart(JSON.parse(cartItemsFromLS)), [cartItemsFromLS]);
+  useEffect(() => {
+    if (cartItemsFromLS) {
+      setCart(JSON.parse(cartItemsFromLS));
+    }
+  }, [cartItemsFromLS]);
 
   const addItemToCart = useCallback(
     (item: ICartProps) => {
@@ -68,5 +72,7 @@ export const useCartHook = () => {
     getCartTotalPrice,
     clearCart,
     cartItems,
+    isLoading,
+    isError,
   };
 };
